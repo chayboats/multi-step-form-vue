@@ -1,0 +1,51 @@
+:root {
+  /* ### Primary */
+
+  --color-dark-blue: hsl(213, 96%, 18%);
+  --color-purple: hsl(243, 100%, 62%);
+  --color-periwinkle: hsl(228, 100%, 84%);
+  --color-light-blue: hsl(206, 94%, 87%);
+  --color-red: hsl(354, 84%, 57%);
+
+  /* ### Neutral */
+
+  --color-white: hsl(0, 0%, 100%);
+  --color-gray-100: hsl(231, 100%, 99%);
+  --color-gray-200: hsl(217, 100%, 97%);
+  --color-gray-300: hsl(229, 24%, 87%);
+  --color-gray-400: hsl(231, 11%, 63%);
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--color-periwinkle);
+  --color-number-background: var(--color-light-blue);
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+} */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+}
