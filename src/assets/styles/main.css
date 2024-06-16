@@ -36,6 +36,21 @@
   }
 } */
 
+@font-face {
+  font-family: 'ubuntu-regular';
+  src: url('../fonts/Ubuntu-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'ubuntu-medium';
+  src: url('../fonts/Ubuntu-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'ubuntu-bold';
+  src: url('../fonts/Ubuntu-Bold.ttf');
+}
+
 *,
 *::before,
 *::after {
@@ -46,6 +61,77 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
+  color: var(--color-gray-400);
   background: var(--color-background);
+  font-size: 16px;
+}
+
+label {
+  color: var(--color-dark-blue);
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: 'ubuntu-medium';
+  font-size: 16px;
+}
+
+::placeholder {
+  color: var(--color-gray-400);
+}
+
+button {
+  font-family: 'ubuntu-regular';
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 14px;
+}
+
+.secondary-btn {
+  background-color: transparent;
+  font-family: 'ubuntu-medium';
+  color: var(--color-gray-400);
+}
+
+.disabled-btn {
+  background-color: var(--color-gray-200);
+}
+
+.h1 {
+  font-family: 'ubuntu-bold';
+  color: var(--color-dark-blue);
+  font-size: 1.5rem;
+}
+
+.h2 {
+  color: var(--color-dark-blue);
+  font-family: 'ubuntu-bold';
+}
+
+.h3 {
+  font-family: 'ubuntu-medium';
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-body-2 {
+  font-size: 14px;
+}
+
+.text-body-3 {
+  font-size: 12px;
+}
+
+.blue {
+  color: var(--color-dark-blue);
+}
+
+.purple {
+  color: var(--color-purple)
 }
