@@ -1,5 +1,5 @@
 <template>
-  <Form @submit="submit">
+  <FormContent>
     <template #title>Personal Info</template>
     <template #description>Please provide your name, email, address, and phone number</template>
     <template #inputs>
@@ -43,14 +43,15 @@
         :class="disabled && 'disabled-btn'"
         type="submit"
         :disabled="disabled"
+        @click="click"
       >
         Next Step
       </button>
     </template>
-  </Form>
+  </FormContent>
 </template>
 <script setup>
-import { Form, FlexSpace, Stack } from '@/components';
+import { FormContent, FlexSpace, Stack } from '@/components';
 import { ref, computed } from 'vue';
 
 const name = ref(null);
@@ -59,11 +60,7 @@ const phone = ref(null);
 
 const disabled = computed(() => !name.value || !email.value || !phone.value);
 
-console.log;
-
-defineEmits(['submit']);
-
-function submit() {
+function click() {
   console.log({ name: name.value, email: email.value, phone: phone.value });
 }
 </script>

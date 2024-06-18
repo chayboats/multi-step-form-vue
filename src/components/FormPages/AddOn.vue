@@ -1,15 +1,18 @@
 <template>
-  <Form>
+  <FormContent>
     <template #title>Pick add-ons</template>
     <template #description>Add-ons helps enhance your gaming experience</template>
     <template #inputs>
       <InputCard
+        style="border-color: var(--color-gray-300)"
         v-for="addOn in Object.keys(addOns)"
         :key="addOns[addOn].id"
         :id="addOns[addOn].id"
       >
         <template #icon>
-          <IconCheckmark />
+          <Stack style="justify-content: center">
+            <IconCheckmark />
+          </Stack>
         </template>
         <template #main-content>
           <Stack class="main-content">
@@ -26,12 +29,14 @@
         </template>
       </InputCard>
     </template>
-  </Form>
+  </FormContent>
 </template>
 
 <script setup>
-import { Form, Stack } from '@/components';
+import { FormContent, Stack } from '@/components';
 import InputCard from './components/InputCard.vue';
 import addOns from './data/addOnInfo.js';
 import { IconCheckmark } from '@/components/Icons';
+import { ref } from 'vue';
+
 </script>

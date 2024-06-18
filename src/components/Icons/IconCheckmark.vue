@@ -1,15 +1,19 @@
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="12"
-    height="9"
-    viewBox="0 0 12 9"
-  >
-    <path
-      fill="none"
-      stroke="#FFF"
-      stroke-width="2"
-      d="m1 4 3.433 3.433L10.866 1"
-    />
-  </svg>
+  <div class="icon-square"></div>
+  <i class="icon-check fa-solid fa-square-check"></i>
 </template>
+
+<script setup></script>
+<style scoped>
+.icon-square {
+  border: 1px solid var(--color-gray-300);
+  height: 1.25rem;
+  width: 1.3rem;
+  border-radius: 0.2rem;
+}
+
+.icon-check {
+  font-size: 1.5rem;
+  color: var(--color-purple);
+}
+</style>

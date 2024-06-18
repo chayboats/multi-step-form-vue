@@ -1,8 +1,5 @@
 <template>
-  <Form
-    v-auto-animate
-    @submit="submit"
-  >
+  <FormContent v-auto-animate>
     <template #title>Select Your Plan</template>
     <template #description>You have the option of monthly or yearly billing</template>
     <template #inputs>
@@ -74,14 +71,15 @@
         :class="!selectedId && 'disabled-btn'"
         type="submit"
         :disabled="!selectedId"
+        @click="click"
       >
         Next Step
       </button>
     </template>
-  </Form>
+  </FormContent>
 </template>
 <script setup>
-import { Form, Row, Stack } from '@/components';
+import { FormContent, Row, Stack } from '@/components';
 import InputCard from './components/InputCard.vue';
 import { IconAdvanced, IconArcade, IconPro } from '@/components/Icons';
 import { ref } from 'vue';
@@ -97,7 +95,7 @@ const icons = {
 const selectedId = ref(null);
 const isMonthly = ref(true);
 
-function submit() {
+function click() {
   console.log({ plan: selectedId.value, isMonthly: isMonthly.value });
 }
 </script>

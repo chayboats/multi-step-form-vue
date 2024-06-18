@@ -1,8 +1,5 @@
 <template>
-  <form
-    @submit.prevent="$emit('submit')"
-    class="form"
-  >
+  <Stack class="form-content">
     <span class="h1">
       <slot name="title"></slot>
     </span>
@@ -15,15 +12,14 @@
     <div class="buttons">
       <slot name="buttons"></slot>
     </div>
-  </form>
+  </Stack>
 </template>
 <script setup>
-defineEmits(['submit']);
+import { Stack } from '@/components';
 </script>
 
 <style scoped>
-.form {
-  background-color: var(--color-white);
+.form-content {
   display: flex;
   flex-direction: column;
   padding: 1rem;
