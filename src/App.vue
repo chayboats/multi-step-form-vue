@@ -6,28 +6,22 @@
         v-auto-animate
         class="content"
       >
-        <form
-          @submit.prevent
-          v-auto-animate
-          v-if="currentStep < 4"
-        >
-          <Personal
-            v-if="currentStep === 0"
-            :personal-data="personalData"
-            @next="nextStep"
-          ></Personal>
-          <Plan
-            v-else-if="currentStep === 1"
-            :is-monthly="isMonthly"
-            @toggle-billing-frequency="isMonthly = !isMonthly"
-            @next="nextStep"
-            @back="previousStep"
-            @select-plan="setPlan"
-            :plan="plan"
-          ></Plan>
-          <AddOn v-else-if="currentStep === 2"></AddOn>
-          <Finishing v-else-if="currentStep === 3"></Finishing>
-        </form>
+        <Personal
+          v-if="currentStep === 0"
+          :personal-data="personalData"
+          @submit="nextStep"
+        ></Personal>
+        <Plan
+          v-else-if="currentStep === 1"
+          :is-monthly="isMonthly"
+          @toggle-billing-frequency="isMonthly = !isMonthly"
+          @next="nextStep"
+          @back="previousStep"
+          @select-plan="setPlan"
+          :plan="plan"
+        ></Plan>
+        <AddOn v-else-if="currentStep === 2"></AddOn>
+        <Finishing v-else-if="currentStep === 3"></Finishing>
         <ThankYou v-else />
       </div>
     </div>
@@ -45,10 +39,10 @@ const isMonthly = ref(true);
 const plan = ref('');
 
 function nextStep() {
-  currentStep.value = currentStep.value + 1;
+  currentStep.value++;
 }
 function previousStep() {
-  currentStep.value = currentStep.value - 1;
+  currentStep.value--;
 }
 
 function setPlan(id) {
