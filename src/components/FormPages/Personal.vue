@@ -42,7 +42,7 @@
         :class="disabled && 'disabled-btn'"
         type="submit"
         :disabled="disabled"
-        @click="$emit('click')"
+        @click="$emit('next')"
       >
         Next Step
       </button>
@@ -53,7 +53,7 @@
 import { FormContent, FlexSpace, Stack } from '@/components';
 import { computed } from 'vue';
 
-defineEmits(['click']);
+defineEmits(['next']);
 
 const props = defineProps({
   personalData: { type: Object, required: true },

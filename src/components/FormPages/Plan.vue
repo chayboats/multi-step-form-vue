@@ -11,9 +11,9 @@
           v-if="isMonthly"
           v-for="monthlyPlan in monthlyPlanInfo"
           :key="monthlyPlan.id + monthlyPlan.price"
-          @click="selectedId = monthlyPlan.id"
+          @click="$emit('selectPlan', monthlyPlan.id)"
           :id="monthlyPlan.id"
-          :selected="selectedId == monthlyPlan.id"
+          :selected="plan == monthlyPlan.id"
         >
           <template #icon> <component :is="icons[monthlyPlan.id]" /> </template>
           <template #main-content>
@@ -32,9 +32,9 @@
           v-else
           v-for="yearlyPlan in yearlyPlanInfo"
           :key="yearlyPlan.id + yearlyPlan.price"
-          @click="selectedId = yearlyPlan.id"
+          @click="$emit('selectPlan', yearlyPlan.id)"
           :id="yearlyPlan.id"
-          :selected="selectedId == yearlyPlan.id"
+          :selected="plan == yearlyPlan.id"
         >
           <template #icon> <component :is="icons[yearlyPlan.id]" /> </template>
           <template #main-content>
@@ -53,7 +53,7 @@
 
       <Row class="slider-card">
         <Slider
-          @click="isMonthly = !isMonthly"
+          @click="$emit('toggleBillingFrequency')"
           :is-at-start="isMonthly"
           option1="monthly"
           option2="yearly"
@@ -64,14 +64,15 @@
       <button
         class="secondary-btn"
         type="button"
+        @click="$emit('back')"
       >
         Go back
       </button>
       <button
-        :class="!selectedId && 'disabled-btn'"
+        :class="!plan && 'disabled-btn'"
         type="submit"
-        :disabled="!selectedId"
-        @click="click"
+        :disabled="!plan"
+        @click="$emit('next')"
       >
         Next Step
       </button>
@@ -86,18 +87,18 @@ import { ref } from 'vue';
 import Slider from './components/Slider.vue';
 import { monthlyPlanInfo, yearlyPlanInfo } from './data/planInfo.js';
 
+const emits = defineEmits(['toggleBillingFrequency', 'back', 'next', 'selectPlan']);
+
+defineProps({
+  isMonthly: { type: Boolean, required: true },
+  plan: { type: String, required: true },
+});
+
 const icons = {
   arcade: IconArcade,
   advanced: IconAdvanced,
   pro: IconPro,
 };
-
-const selectedId = ref(null);
-const isMonthly = ref(true);
-
-function click() {
-  console.log({ plan: selectedId.value, isMonthly: isMonthly.value });
-}
 </script>
 
 <style scoped>
