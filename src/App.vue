@@ -6,7 +6,7 @@
         v-auto-animate
         class="content"
       >
-        <form
+        <form @submit.prevent
           v-auto-animate
           v-if="currentStep < 4"
         >
@@ -34,9 +34,7 @@ const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
 
 function nextStep() {
-  currentStep = currentStep.value + 1;
-  console.log(personalData.value);
-  console.log(currentStep.value)
+  currentStep.value = currentStep.value + 1;
 }
 </script>
 

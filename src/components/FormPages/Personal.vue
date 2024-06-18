@@ -51,13 +51,13 @@
 </template>
 <script setup>
 import { FormContent, FlexSpace, Stack } from '@/components';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
+
+defineEmits(['click']);
 
 const props = defineProps({
   personalData: { type: Object, required: true },
 });
-
-defineEmits(['click']);
 
 const disabled = computed(() => {
   const data = Object.values(props.personalData);
