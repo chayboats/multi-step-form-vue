@@ -10,7 +10,7 @@
           type="text"
           placeholder="e.g. Stephen King"
           required
-          v-model="name"
+          v-model="personalData.name"
         />
       </Stack>
 
@@ -21,7 +21,7 @@
           type="email"
           placeholder="e.g. stephenking@lorem.com"
           required
-          v-model="email"
+          v-model="personalData.email"
         />
       </Stack>
 
@@ -31,9 +31,8 @@
           id="phone"
           type="tel"
           placeholder="e.g. +1 234 567 890"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           required
-          v-model="phone"
+          v-model="personalData.phone"
         />
       </Stack>
     </template>
@@ -43,7 +42,7 @@
         :class="disabled && 'disabled-btn'"
         type="submit"
         :disabled="disabled"
-        @click="click"
+        @click="$emit('click')"
       >
         Next Step
       </button>
@@ -54,13 +53,20 @@
 import { FormContent, FlexSpace, Stack } from '@/components';
 import { ref, computed } from 'vue';
 
-const name = ref(null);
-const email = ref(null);
-const phone = ref(null);
+const props = defineProps({
+  personalData: { type: Object, required: true },
+});
 
-const disabled = computed(() => !name.value || !email.value || !phone.value);
+defineEmits(['click']);
 
-function click() {
-  console.log({ name: name.value, email: email.value, phone: phone.value });
+const disabled = computed(() => {
+  const data = Object.values(props.personalData);
+
+  return includesSome(data, [null, '']);
+});
+
+function includesSome(array, values) {
+  const includes = (array, values) => values.some((value) => array.includes(value));
+  return includes(array, values);
 }
 </script>
