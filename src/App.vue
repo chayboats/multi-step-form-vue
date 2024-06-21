@@ -20,7 +20,12 @@
           @select-plan="setPlan"
           :plan="plan"
         ></Plan>
-        <AddOn v-else-if="currentStep === 2"></AddOn>
+        <AddOn
+          v-else-if="currentStep === 2"
+          :is-monthly="isMonthly"
+          @set-add-ons="setAddOns"
+          :data="addOns"
+        ></AddOn>
         <Finishing v-else-if="currentStep === 3"></Finishing>
         <ThankYou v-else />
       </div>
@@ -37,6 +42,7 @@ const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
 const isMonthly = ref(true);
 const plan = ref('');
+const addOns = ref({ service: false, storage: false, profile: false });
 
 function nextStep() {
   currentStep.value++;
@@ -47,6 +53,9 @@ function previousStep() {
 
 function setPlan(id) {
   plan.value = id;
+}
+function setAddOns(selected) {
+  addOns.value[selected] = !addOns.value[selected];
 }
 </script>
 

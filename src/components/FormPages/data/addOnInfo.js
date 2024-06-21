@@ -1,6 +1,6 @@
 export default {
-  online: {
-    id: 'online',
+  service: {
+    id: 'service',
     title: 'Online service',
     description: 'Access to mulitplayer games',
     price: { monthly: '+$1/mo', yearly: '+$10/yr' },

@@ -8,6 +8,7 @@
         v-for="addOn in Object.keys(addOns)"
         :key="addOns[addOn].id"
         :id="addOns[addOn].id"
+        @click="$emit('setAddOns', addOns[addOn].id)"
       >
         <template #icon>
           <Stack style="justify-content: center">
@@ -25,7 +26,7 @@
           </Stack>
         </template>
         <template #additional-info>
-          <span class="text-body-2 purple">{{ addOns[addOn].price.monthly }}</span>
+          <span class="text-body-2 purple">{{ addOns[addOn].price[isMonthly ? 'monthly' : 'yearly'] }}</span>
         </template>
       </InputCard>
     </template>
@@ -37,6 +38,11 @@ import { FormContent, Stack } from '@/components';
 import InputCard from './components/InputCard.vue';
 import addOns from './data/addOnInfo.js';
 import { IconCheckmark } from '@/components/Icons';
-import { ref } from 'vue';
 
+defineProps({
+  isMonthly: { type: Boolean, required: true },
+  data: { type: Object, required: true },
+});
+
+defineEmits('setAddOns');
 </script>
