@@ -2,10 +2,7 @@
   <div class="app">
     <div class="main">
       <SidebarMobile />
-      <div
-        v-auto-animate
-        class="content"
-      >
+      <div v-auto-animate class="content">
         <Personal
           v-if="currentStep === 0"
           :personal-data="personalData"
@@ -24,6 +21,8 @@
           v-else-if="currentStep === 2"
           :is-monthly="isMonthly"
           @set-add-ons="setAddOns"
+          @next="nextStep"
+          @back="previousStep"
           :data="addOns"
         ></AddOn>
         <Finishing v-else-if="currentStep === 3"></Finishing>
@@ -34,14 +33,14 @@
 </template>
 
 <script setup>
-import { SidebarMobile, ThankYou } from '@/components';
-import { Personal, Plan, AddOn, Finishing } from '@/components/FormPages';
-import { ref } from 'vue';
+import { SidebarMobile, ThankYou } from "@/components";
+import { Personal, Plan, AddOn, Finishing } from "@/components/FormPages";
+import { ref } from "vue";
 
 const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
 const isMonthly = ref(true);
-const plan = ref('');
+const plan = ref("");
 const addOns = ref({ service: false, storage: false, profile: false });
 
 function nextStep() {
@@ -62,7 +61,7 @@ function setAddOns(selected) {
 <style scoped>
 .main {
   display: grid;
-  font-family: 'ubuntu-regular';
+  font-family: "ubuntu-regular";
 }
 .content {
   background-color: var(--color-white);
