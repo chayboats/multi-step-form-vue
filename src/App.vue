@@ -25,7 +25,15 @@
           @back="previousStep"
           :data="addOns"
         ></AddOn>
-        <Finishing v-else-if="currentStep === 3"></Finishing>
+        <Finishing
+          v-else-if="currentStep === 3"
+          :is-monthly="isMonthly"
+          :plan="plan"
+          :add-ons="addOns"
+          @change="startOver"
+          @back="previousStep"
+          @confirm="nextStep"
+        ></Finishing>
         <ThankYou v-else />
       </div>
     </div>
@@ -55,6 +63,10 @@ function setPlan(id) {
 }
 function setAddOns(selected) {
   addOns.value[selected] = !addOns.value[selected];
+}
+
+function startOver() {
+  currentStep.value = 1
 }
 </script>
 

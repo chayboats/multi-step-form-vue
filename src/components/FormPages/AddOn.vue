@@ -54,7 +54,7 @@ defineProps({
   data: { type: Object, required: true },
 });
 
-defineEmits(["setAddOns, next, back"]);
+defineEmits(["setAddOns", "next", "back"]);
 </script>
 
 <style scoped>
