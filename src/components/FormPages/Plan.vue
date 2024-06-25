@@ -20,9 +20,9 @@
               <span style="text-transform: capitalize" class="h2">{{
                 monthlyPlan
               }}</span>
-              <span class="text-body-2">{{
+              <span class="text-body-2">${{
                 planPrices.monthly[monthlyPlan]
-              }}</span>
+              }}/mo</span>
             </Stack>
           </template>
         </InputCard>
@@ -41,9 +41,9 @@
               <span style="text-transform: capitalize" class="h2">{{
                 yearlyPlan
               }}</span>
-              <span class="text-body-2">{{
+              <span class="text-body-2">${{
                 planPrices.yearly[yearlyPlan]
-              }}</span>
+              }}/yr</span>
               <span class="blue text-body-3">2 months free</span>
             </Stack>
           </template>

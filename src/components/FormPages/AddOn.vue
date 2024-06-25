@@ -28,9 +28,12 @@
           </Stack>
         </template>
         <template #additional-info>
-          <span class="text-body-2 purple">{{
-            addOns[addOn].price[isMonthly ? "monthly" : "yearly"]
-          }}</span>
+          <span v-if="isMonthly" class="text-body-2 purple">+${{
+            addOns[addOn].price.monthly
+          }}/mo</span>
+            <span v-else class="text-body-2 purple">+${{
+            addOns[addOn].price.yearly
+          }}/yr</span>
         </template>
       </InputCard>
     </template>

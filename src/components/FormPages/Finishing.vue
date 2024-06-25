@@ -5,31 +5,40 @@
       Double-check everything looks OK before confirming.
     </template>
     <template #inputs>
-      <Stack style="gap: 1rem">
+      <Stack v-if="isMonthly" style="gap: 1rem">
         <Row style="justify-content: space-between; align-items: center">
           <Stack>
-            <span class="capitalize h2 blue"
-              >{{ plan }} ({{ isMonthly ? "Monthly" : "Yearly" }})</span
-            >
+            <span class="capitalize h2 blue">{{ plan }} (Monthly)</span>
             <span class="change" @click="$emit('change')">Change</span>
           </Stack>
-          <span class="h2 blue" v-if="isMonthly"
-            >${{ planPrices.monthly[plan] }}</span
-          >
-          <span class="h2 blue" v-else>{{ planPrices.yearly[plan] }}</span>
+          <span class="h2 blue">${{ planPrices.monthly[plan] }}/mo</span>
         </Row>
         <hr />
-        <Row style="justify-content: space-between;" v-for="addOn in addOnKeys">
+        <Row style="justify-content: space-between" v-for="addOn in addOnKeys">
           <span>{{ addOnInfo[addOn].title }}</span>
-          <span class="h3 blue" v-if="isMonthly">{{
-            addOnInfo[addOn].price.monthly
-          }}</span>
-          <span class="h3 blue" v-else>{{ addOnInfo[addOn].price.yearly }}</span>
+          <span class="h3 blue">+${{ addOnInfo[addOn].price.monthly }}/mo</span>
         </Row>
-        <Row style="justify-content: space-between;">
-          <span>Total (per {{ isMonthly ? 'month' : 'year' }})</span>
-
-
+        <Row style="justify-content: space-between">
+          <span>Total (per month)</span>
+          <span class="h2 purple">${{ totalPrice() }}/mo</span>
+        </Row>
+      </Stack>
+      <Stack v-else style="gap: 1rem">
+        <Row style="justify-content: space-between; align-items: center">
+          <Stack>
+            <span class="capitalize h2 blue">{{ plan }} (Yearly)</span>
+            <span class="change" @click="$emit('change')">Change</span>
+          </Stack>
+          <span class="h2 blue">${{ planPrices.yearly[plan] }}/yr</span>
+        </Row>
+        <hr />
+        <Row style="justify-content: space-between" v-for="addOn in addOnKeys">
+          <span>{{ addOnInfo[addOn].title }}</span>
+          <span class="h3 blue">+${{ addOnInfo[addOn].price.yearly }}/yr</span>
+        </Row>
+        <Row style="justify-content: space-between">
+          <span>Total (per year)</span>
+          <span class="h2 purple">${{ totalPrice() }}/yr</span>
         </Row>
       </Stack>
     </template>
@@ -38,13 +47,19 @@
       <button class="secondary-btn" type="button" @click="$emit('back')">
         Go back
       </button>
-      <button type="button" @click="$emit('confirm')">Confirm</button>
+      <button
+        style="background-color: var(--color-purple)"
+        type="button"
+        @click="$emit('confirm')"
+      >
+        Confirm
+      </button>
     </template>
   </FormContent>
 </template>
 
 <script setup>
-import { FormContent, Stack, Row, Columns } from "@/components";
+import { FormContent, Stack, Row } from "@/components";
 import planPrices from "./data/planPrices.js";
 import addOnInfo from "./data/addOnInfo.js";
 
@@ -54,11 +69,20 @@ const props = defineProps({
   addOns: { type: Object, required: true },
 });
 
-defineEmits(["change", "next", "back"]);
+defineEmits(["change", "confirm", "back"]);
 
 const addOnKeys = Object.keys(props.addOns).filter(
   (key) => props.addOns[key] === true
 );
+
+function totalPrice() {
+  const frequency = props.isMonthly ? "monthly" : "yearly";
+  const planPrice = planPrices[frequency][props.plan];
+  const addOnPrices = addOnKeys.map((key) => addOnInfo[key].price[frequency]);
+  const prices = [planPrice, ...addOnPrices];
+
+  return prices.reduce((acc, curr) => acc + curr, 0);
+}
 </script>
 
 <style scoped>
