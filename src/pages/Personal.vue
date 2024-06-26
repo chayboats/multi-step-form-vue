@@ -1,9 +1,12 @@
 <template>
-  <form @submit.prevent="$emit('submit')">
-    <FormContent>
+  <form
+    @submit.prevent="$emit('submit')"
+    style="height: 100%"
+  >
+    <Page>
       <template #title>Personal Info</template>
       <template #description>Please provide your name, email, address, and phone number</template>
-      <template #inputs>
+      <template #content>
         <Stack>
           <label for="name">Name</label>
           <input
@@ -31,43 +34,28 @@
           <input
             id="phone"
             type="tel"
-            placeholder="e.g. +1 234 567 890"
+            placeholder="e.g. 1234567890"
+            maxlength="10"
+            pattern="\d{10}"
             required
+            title="1234567890"
             v-model="personalData.phone"
           />
         </Stack>
       </template>
       <template #buttons>
         <FlexSpace />
-        <button
-          :class="disabled && 'disabled-btn'"
-          type="submit"
-          :disabled="disabled"
-        >
-          Next Step
-        </button>
+        <button type="submit">Next Step</button>
       </template>
-    </FormContent>
+    </Page>
   </form>
 </template>
 <script setup>
-import { FormContent, FlexSpace, Stack } from '@/components';
-import { computed } from 'vue';
+import { Page, FlexSpace, Stack } from '@/components';
 
 defineEmits(['submit']);
 
 const props = defineProps({
   personalData: { type: Object, required: true },
 });
-
-const disabled = computed(() => {
-  const data = Object.values(props.personalData);
-
-  return includesSome(data, [null, '']);
-});
-
-function includesSome(array, values) {
-  const includes = (array, values) => values.some((value) => array.includes(value));
-  return includes(array, values);
-}
 </script>

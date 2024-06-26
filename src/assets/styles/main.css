@@ -18,7 +18,7 @@
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--color-periwinkle);
+  --color-background: var(--color-gray-200);
   --color-number-background: var(--color-light-blue);
 }
 
@@ -138,4 +138,8 @@ button:hover {
 
 .purple {
   color: var(--color-purple);
+}
+
+p {
+  line-height: 1.5rem;
 }

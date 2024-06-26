@@ -1,5 +1,6 @@
 <template>
   <svg
+  class="sidebar"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     width="375"
@@ -56,3 +57,10 @@
     </g>
   </svg>
 </template>
+
+<style scoped>
+.sidebar {
+  position: absolute;
+  z-index: -1;
+}
+</style>

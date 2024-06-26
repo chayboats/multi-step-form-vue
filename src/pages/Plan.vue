@@ -1,11 +1,12 @@
 <template>
-  <FormContent v-auto-animate>
+  <Page v-auto-animate>
     <template #title>Select Your Plan</template>
-    <template #description
-      >You have the option of monthly or yearly billing</template
-    >
-    <template #inputs>
-      <Stack v-auto-animate class="plan-inputs">
+    <template #description>You have the option of monthly or yearly billing</template>
+    <template #content>
+      <Stack
+        v-auto-animate
+        class="plan-inputs"
+      >
         <InputCard
           v-if="isMonthly"
           v-for="monthlyPlan in Object.keys(planPrices.monthly)"
@@ -17,12 +18,12 @@
           <template #icon> <component :is="icons[monthlyPlan]" /> </template>
           <template #main-content>
             <Stack class="main-content">
-              <span style="text-transform: capitalize" class="h2">{{
-                monthlyPlan
-              }}</span>
-              <span class="text-body-2">${{
-                planPrices.monthly[monthlyPlan]
-              }}/mo</span>
+              <span
+                style="text-transform: capitalize"
+                class="h2"
+                >{{ monthlyPlan }}</span
+              >
+              <span class="text-body-2">${{ planPrices.monthly[monthlyPlan] }}/mo</span>
             </Stack>
           </template>
         </InputCard>
@@ -38,12 +39,12 @@
           <template #icon> <component :is="icons[yearlyPlan]" /> </template>
           <template #main-content>
             <Stack class="main-content">
-              <span style="text-transform: capitalize" class="h2">{{
-                yearlyPlan
-              }}</span>
-              <span class="text-body-2">${{
-                planPrices.yearly[yearlyPlan]
-              }}/yr</span>
+              <span
+                style="text-transform: capitalize"
+                class="h2"
+                >{{ yearlyPlan }}</span
+              >
+              <span class="text-body-2">${{ planPrices.yearly[yearlyPlan] }}/yr</span>
               <span class="blue text-body-3">2 months free</span>
             </Stack>
           </template>
@@ -58,40 +59,47 @@
           option2="yearly"
         />
       </Row>
+      <Row
+        class="notice"
+        v-if="error"
+      >
+        <IconWarning />
+        <div>
+          <span class="h2">Warning: </span>
+          <span class="blue">Please select a plan from the options above.</span>
+        </div>
+      </Row>
     </template>
     <template #buttons>
-      <button class="secondary-btn" type="button" @click="$emit('back')">
+      <button
+        class="secondary-btn"
+        type="button"
+        @click="$emit('back')"
+      >
         Go back
       </button>
       <button
-        :class="!plan && 'disabled-btn'"
         type="button"
-        :disabled="!plan"
-        @click="$emit('next')"
+        @click="submit"
       >
         Next Step
       </button>
     </template>
-  </FormContent>
+  </Page>
 </template>
 <script setup>
-import { FormContent, Row, Stack } from "@/components";
-import InputCard from "./components/InputCard.vue";
-import { IconAdvanced, IconArcade, IconPro } from "@/components/Icons";
-import { ref } from "vue";
-import Slider from "./components/Slider.vue";
-import planPrices from "./data/planPrices.js";
+import { Page, Row, Stack } from '@/components';
+import InputCard from './components/InputCard.vue';
+import { IconAdvanced, IconArcade, IconPro, IconWarning } from '@/components/Icons';
+import Slider from './components/Slider.vue';
+import planPrices from './data/planPrices.js';
+import { ref, computed } from 'vue';
 
-const emits = defineEmits([
-  "toggleBillingFrequency",
-  "back",
-  "next",
-  "selectPlan",
-]);
+const emits = defineEmits(['toggleBillingFrequency', 'back', 'next', 'selectPlan']);
 
-defineProps({
+const props = defineProps({
   isMonthly: { type: Boolean, required: true },
-  plan: { type: String, required: true },
+  plan: { type: [String, null], required: true },
 });
 
 const icons = {
@@ -99,6 +107,20 @@ const icons = {
   advanced: IconAdvanced,
   pro: IconPro,
 };
+
+const submitted = ref(false);
+
+const error = computed(() => {
+  if (submitted.value) {
+    return props.plan ? false : true;
+  }
+  return false;
+});
+
+function submit() {
+  submitted.value = true;
+  props.plan && emits('next');
+}
 </script>
 
 <style scoped>
@@ -116,5 +138,14 @@ const icons = {
 
 .main-content {
   gap: 0.3rem;
+}
+
+.notice {
+  background-color: #fff1e0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 </style>

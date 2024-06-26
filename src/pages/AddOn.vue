@@ -1,10 +1,8 @@
 <template>
-  <FormContent>
+  <Page>
     <template #title>Pick add-ons</template>
-    <template #description
-      >Add-ons helps enhance your gaming experience</template
-    >
-    <template #inputs>
+    <template #description>Add-ons helps enhance your gaming experience</template>
+    <template #content>
       <InputCard
         class="add-on"
         :class="data[addOns[addOn].id] && 'selected'"
@@ -21,43 +19,58 @@
         </template>
         <template #main-content>
           <Stack class="main-content">
-            <span style="text-transform: capitalize" class="h2">{{
-              addOns[addOn].title
-            }}</span>
+            <span
+              style="text-transform: capitalize"
+              class="h2"
+              >{{ addOns[addOn].title }}</span
+            >
             <span class="text-body-2">{{ addOns[addOn].description }}</span>
           </Stack>
         </template>
         <template #additional-info>
-          <span v-if="isMonthly" class="text-body-2 purple">+${{
-            addOns[addOn].price.monthly
-          }}/mo</span>
-            <span v-else class="text-body-2 purple">+${{
-            addOns[addOn].price.yearly
-          }}/yr</span>
+          <span
+            v-if="isMonthly"
+            class="text-body-2 purple"
+            >+${{ addOns[addOn].price.monthly }}/mo</span
+          >
+          <span
+            v-else
+            class="text-body-2 purple"
+            >+${{ addOns[addOn].price.yearly }}/yr</span
+          >
         </template>
       </InputCard>
     </template>
     <template #buttons>
-      <button class="secondary-btn" type="button" @click="$emit('back')">
+      <button
+        class="secondary-btn"
+        type="button"
+        @click="$emit('back')"
+      >
         Go back
       </button>
-      <button type="button" @click="$emit('next')">Next Step</button>
+      <button
+        type="button"
+        @click="$emit('next')"
+      >
+        Next Step
+      </button>
     </template>
-  </FormContent>
+  </Page>
 </template>
 
 <script setup>
-import { FormContent, Stack } from "@/components";
-import InputCard from "./components/InputCard.vue";
-import addOns from "./data/addOnInfo.js";
-import { IconCheckedBox, IconUncheckedBox } from "@/components/Icons";
+import { Page, Stack } from '@/components';
+import InputCard from './components/InputCard.vue';
+import addOns from './data/addOnInfo.js';
+import { IconCheckedBox, IconUncheckedBox } from '@/components/Icons';
 
 defineProps({
   isMonthly: { type: Boolean, required: true },
   data: { type: Object, required: true },
 });
 
-defineEmits(["setAddOns", "next", "back"]);
+defineEmits(['setAddOns', 'next', 'back']);
 </script>
 
 <style scoped>
