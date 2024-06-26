@@ -1,0 +1,119 @@
+<template>
+  <Page>
+    <template #title> Finishing Up </template>
+    <template #description> Double-check everything looks OK before confirming. </template>
+    <template #content>
+      <Stack style="gap: 1rem">
+        <Stack class="info-card">
+          <Row style="justify-content: space-between; align-items: center">
+            <Stack>
+              <span class="capitalize h2 blue">{{ plan }} ({{ labels[frequency].frequency }})</span>
+              <span
+                class="change"
+                @click="$emit('change')"
+                >Change</span
+              >
+            </Stack>
+            <span class="h2 blue">${{ planPrices[frequency][plan] }}/{{ labels[frequency].abbreviation }}</span>
+          </Row>
+
+          <hr />
+
+          <Row
+            style="justify-content: space-between"
+            v-for="addOn in addOnKeys"
+          >
+            <span>{{ addOnInfo[addOn].title }}</span>
+            <span class="blue">+${{ addOnInfo[addOn].price[frequency] }}/{{ labels[frequency].abbreviation }}</span>
+          </Row>
+        </Stack>
+
+        <Row
+          class="total"
+          style="justify-content: space-between"
+        >
+          <span>Total (per {{ labels[frequency].unit }})</span>
+          <span class="h2 purple">${{ totalPrice() }}/{{ labels[frequency].abbreviation }}</span>
+        </Row>
+      </Stack>
+    </template>
+
+    <template #buttons>
+      <button
+        class="secondary-btn"
+        type="button"
+        @click="$emit('back')"
+      >
+        Go back
+      </button>
+
+      <button
+        style="background-color: var(--color-purple)"
+        type="button"
+        @click="$emit('confirm')"
+      >
+        Confirm
+      </button>
+    </template>
+  </Page>
+</template>
+
+<script setup>
+import { Page, Stack, Row } from '@/components';
+import planPrices from './data/planPrices.js';
+import addOnInfo from './data/addOnInfo.js';
+
+const props = defineProps({
+  isMonthly: { type: Boolean, required: true },
+  plan: { type: String, required: true },
+  addOns: { type: Object, required: true },
+});
+
+defineEmits(['change', 'confirm', 'back']);
+
+const addOnKeys = Object.keys(props.addOns).filter((key) => props.addOns[key] === true);
+const frequency = props.isMonthly ? 'monthly' : 'yearly';
+
+const labels = {
+  monthly: {
+    frequency: 'monthly',
+    unit: 'month',
+    abbreviation: 'mo',
+  },
+  yearly: {
+    frequency: 'yearly',
+    unit: 'year',
+    abbreviation: 'yr',
+  },
+};
+
+function totalPrice() {
+  const planPrice = planPrices[frequency][props.plan];
+  const addOnPrices = addOnKeys.map((key) => addOnInfo[key].price[frequency]);
+  const prices = [planPrice, ...addOnPrices];
+
+  return prices.reduce((acc, curr) => acc + curr, 0);
+}
+</script>
+
+<style scoped>
+.change {
+  color: var(--color-gray-400);
+  text-decoration: underline;
+}
+.change:hover {
+  cursor: pointer;
+}
+
+.info-card {
+  background-color: var(--color-gray-100);
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: 0.5rem;
+}
+
+.total {
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+</style>

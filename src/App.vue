@@ -12,7 +12,10 @@
       </div>
     </Row>
 
-    <div class="main">
+    <div
+      class="main"
+      v-auto-animate
+    >
       <Personal
         v-if="currentStep === 0"
         :personal-data="personalData"
@@ -36,7 +39,7 @@
         @back="previousStep"
         :data="addOns"
       ></AddOn>
-      <Finishing
+      <Summary
         v-else-if="currentStep === 3"
         :is-monthly="isMonthly"
         :plan="plan"
@@ -44,15 +47,15 @@
         @change="startOver"
         @back="previousStep"
         @confirm="nextStep"
-      ></Finishing>
-      <ThankYou v-else />
+      ></Summary>
+      <Confirmation v-else />
     </div>
   </Stack>
 </template>
 
 <script setup>
 import { SidebarMobile, Row, Stack } from '@/components';
-import { Personal, Plan, AddOn, Finishing, ThankYou } from '@/pages';
+import { Personal, Plan, AddOn, Confirmation, Summary } from '@/pages';
 import { ref } from 'vue';
 
 const currentStep = ref(0);
@@ -108,4 +111,3 @@ function startOver() {
   padding: 1rem;
 }
 </style>
-@/components/Pages @/Pages@/pages

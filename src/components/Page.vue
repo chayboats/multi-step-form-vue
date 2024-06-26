@@ -39,7 +39,6 @@ defineProps({
   display: flex;
   flex-direction: column;
   padding: v-bind('isLastPage ? "5rem 1.5rem" : "1.5rem"');
-  padding-top: v-bind('isLastPage ? "5rem" : "2.5rem"');
   gap: 1rem;
   background-color: var(--color-white);
   border-radius: 0.75rem;

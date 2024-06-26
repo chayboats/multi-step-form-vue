@@ -1,7 +1,7 @@
 <template>
   <Page>
     <template #title>Pick add-ons</template>
-    <template #description>Add-ons helps enhance your gaming experience</template>
+    <template #description>Add-ons help enhance your gaming experience</template>
     <template #content>
       <InputCard
         class="add-on"
