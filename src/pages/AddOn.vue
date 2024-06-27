@@ -72,6 +72,6 @@ defineEmits(['setAddOns', 'next', 'back']);
 
 .add-on.selected {
   border-color: var(--color-purple);
-  background-color: var(--color-gray-200);
+  background-color: var(--color-gray-100);
 }
 </style>

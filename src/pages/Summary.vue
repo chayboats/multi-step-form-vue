@@ -62,7 +62,7 @@
 import { Page, Stack, Row } from '@/components';
 import planPrices from './data/planPrices.js';
 import addOnInfo from './data/addOnInfo.js';
-import frequencyLabels from './data/frequencyLabels.js'
+import frequencyLabels from './data/frequencyLabels.js';
 
 const props = defineProps({
   plan: { type: String, required: true },
@@ -87,9 +87,12 @@ function totalPrice() {
 .change {
   color: var(--color-gray-400);
   text-decoration: underline;
+  transition: 0.15s ease-in-out;
 }
+
 .change:hover {
   cursor: pointer;
+  color: var(--color-purple);
 }
 
 .info-card {

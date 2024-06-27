@@ -36,5 +36,6 @@ defineProps({
 
 .input-card:hover {
   cursor: pointer;
+  border: 1px solid var(--color-purple);
 }
 </style>

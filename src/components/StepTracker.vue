@@ -22,6 +22,7 @@ defineProps({
 .step-tracker {
   padding: 2rem;
   gap: 1rem;
+  align-items: center;
 }
 
 .number-circle {

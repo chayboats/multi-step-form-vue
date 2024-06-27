@@ -1,6 +1,10 @@
 <template>
-  <Stack class="app">
-    <SidebarMobile />
+  <div class="app">
+    <Stack v-if="tablet">
+      <SidebarDesktop />
+    </Stack>
+    
+    <SidebarMobile v-else />
 
     <StepTracker :current-step="currentStep" />
 
@@ -43,14 +47,16 @@
       ></Summary>
       <Confirmation v-else />
     </div>
-  </Stack>
+  </div>
 </template>
 
 <script setup>
-import { SidebarMobile, Row, Stack, StepTracker } from '@/components';
+import { SidebarMobile, SidebarDesktop, Stack, StepTracker } from '@/components';
 import { Personal, Plan, AddOn, Confirmation, Summary } from '@/pages';
-import { ref, computed } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
+import useBreakpoint from './use/useBreakpoint.js';
 
+const { tablet } = useBreakpoint();
 const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
 const isMonthly = ref(true);
@@ -87,10 +93,15 @@ function startOver() {
 
 <style scoped>
 .app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'ubuntu-regular';
   height: 100vh;
-  align-items: center;
   width: 100%;
+  @media (--tablet) {
+    flex-direction: row;
+  }
 }
 
 .main {
@@ -98,5 +109,8 @@ function startOver() {
   padding: 1rem;
   align-items: center;
   width: 100%;
+  @media (--tablet) {
+    height: auto;
+  }
 }
 </style>
