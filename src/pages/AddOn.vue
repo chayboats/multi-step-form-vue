@@ -28,16 +28,7 @@
           </Stack>
         </template>
         <template #additional-info>
-          <span
-            v-if="isMonthly"
-            class="text-body-2 purple"
-            >+${{ addOns[addOn].price.monthly }}/mo</span
-          >
-          <span
-            v-else
-            class="text-body-2 purple"
-            >+${{ addOns[addOn].price.yearly }}/yr</span
-          >
+          <span class="text-body-2 purple">+${{ addOns[addOn].price[frequency] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
         </template>
       </InputCard>
     </template>
@@ -64,10 +55,11 @@ import { Page, Stack } from '@/components';
 import InputCard from './components/InputCard.vue';
 import addOns from './data/addOnInfo.js';
 import { IconCheckedBox, IconUncheckedBox } from '@/components/Icons';
+import frequencyLabels from './data/frequencyLabels.js';
 
 defineProps({
-  isMonthly: { type: Boolean, required: true },
   data: { type: Object, required: true },
+  frequency: { type: String, required: true },
 });
 
 defineEmits(['setAddOns', 'next', 'back']);

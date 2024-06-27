@@ -1,11 +1,9 @@
 <template>
   <svg
-  class="sidebar"
+    class="sidebar"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="375"
-    height="172"
-    viewBox="0 0 375 172"
+    viewBox="0 0 300 200"
   >
     <defs>
       <path

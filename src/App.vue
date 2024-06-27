@@ -2,15 +2,7 @@
   <Stack class="app">
     <SidebarMobile />
 
-    <Row class="steps">
-      <div
-        class="number-circle"
-        v-for="step in [...Array(4).keys()]"
-        :key="step + 1"
-      >
-        <span>{{ step + 1 }}</span>
-      </div>
-    </Row>
+    <StepTracker :current-step="currentStep" />
 
     <div
       class="main"
@@ -29,11 +21,12 @@
         @next="nextStep"
         @back="previousStep"
         @select-plan="setPlan"
+        :frequency="frequency"
         :plan="plan"
       ></Plan>
       <AddOn
         v-else-if="currentStep === 2"
-        :is-monthly="isMonthly"
+        :frequency="frequency"
         @set-add-ons="setAddOns"
         @next="nextStep"
         @back="previousStep"
@@ -41,9 +34,9 @@
       ></AddOn>
       <Summary
         v-else-if="currentStep === 3"
-        :is-monthly="isMonthly"
         :plan="plan"
         :add-ons="addOns"
+        :frequency="frequency"
         @change="startOver"
         @back="previousStep"
         @confirm="nextStep"
@@ -54,9 +47,9 @@
 </template>
 
 <script setup>
-import { SidebarMobile, Row, Stack } from '@/components';
+import { SidebarMobile, Row, Stack, StepTracker } from '@/components';
 import { Personal, Plan, AddOn, Confirmation, Summary } from '@/pages';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
@@ -64,9 +57,17 @@ const isMonthly = ref(true);
 const plan = ref(null);
 const addOns = ref({ service: false, storage: false, profile: false });
 
+const frequency = computed(() => {
+  if (isMonthly.value) {
+    return 'monthly';
+  }
+  return 'yearly';
+});
+
 function nextStep() {
   currentStep.value++;
 }
+
 function previousStep() {
   currentStep.value--;
 }
@@ -89,25 +90,13 @@ function startOver() {
   font-family: 'ubuntu-regular';
   height: 100vh;
   align-items: center;
-}
-.steps {
-  padding: 2rem;
-  gap: 1rem;
-}
-
-.number-circle {
-  border: 1px solid white;
-  border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+  width: 100%;
 }
 
 .main {
   height: 100%;
   padding: 1rem;
+  align-items: center;
+  width: 100%;
 }
 </style>

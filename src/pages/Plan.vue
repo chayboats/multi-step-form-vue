@@ -8,44 +8,21 @@
         class="plan-inputs"
       >
         <InputCard
-          v-if="isMonthly"
-          v-for="monthlyPlan in Object.keys(planPrices.monthly)"
-          :key="monthlyPlan + planPrices.monthly[monthlyPlan]"
-          @click="$emit('selectPlan', monthlyPlan)"
-          :id="monthlyPlan"
-          :selected="plan == monthlyPlan"
+          v-for="currentPlan in Object.keys(planPrices[frequency])"
+          :key="currentPlan + planPrices[frequency][currentPlan]"
+          @click="$emit('selectPlan', currentPlan)"
+          :id="currentPlan"
+          :selected="plan == currentPlan"
         >
-          <template #icon> <component :is="icons[monthlyPlan]" /> </template>
+          <template #icon> <component :is="icons[currentPlan]" /> </template>
           <template #main-content>
             <Stack class="main-content">
               <span
                 style="text-transform: capitalize"
                 class="h2"
-                >{{ monthlyPlan }}</span
+                >{{ currentPlan }}</span
               >
-              <span class="text-body-2">${{ planPrices.monthly[monthlyPlan] }}/mo</span>
-            </Stack>
-          </template>
-        </InputCard>
-
-        <InputCard
-          v-else
-          v-for="yearlyPlan in Object.keys(planPrices.yearly)"
-          :key="yearlyPlan + planPrices.yearly[yearlyPlan]"
-          @click="$emit('selectPlan', yearlyPlan)"
-          :id="yearlyPlan"
-          :selected="plan == yearlyPlan"
-        >
-          <template #icon> <component :is="icons[yearlyPlan]" /> </template>
-          <template #main-content>
-            <Stack class="main-content">
-              <span
-                style="text-transform: capitalize"
-                class="h2"
-                >{{ yearlyPlan }}</span
-              >
-              <span class="text-body-2">${{ planPrices.yearly[yearlyPlan] }}/yr</span>
-              <span class="blue text-body-3">2 months free</span>
+              <span class="text-body-2">${{ planPrices[frequency][currentPlan] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
             </Stack>
           </template>
         </InputCard>
@@ -96,12 +73,14 @@ import { IconAdvanced, IconArcade, IconPro, IconWarning } from '@/components/Ico
 import Slider from './components/Slider.vue';
 import planPrices from './data/planPrices.js';
 import { ref, computed } from 'vue';
+import frequencyLabels from './data/frequencyLabels.js';
 
 const emits = defineEmits(['toggleBillingFrequency', 'back', 'next', 'selectPlan']);
 
 const props = defineProps({
   isMonthly: { type: Boolean, required: true },
   plan: { type: [String, null], required: true },
+  frequency: { type: String, required: true },
 });
 
 const icons = {

@@ -7,14 +7,14 @@
         <Stack class="info-card">
           <Row style="justify-content: space-between; align-items: center">
             <Stack>
-              <span class="capitalize h2 blue">{{ plan }} ({{ labels[frequency].frequency }})</span>
+              <span class="capitalize h2 blue">{{ plan }} ({{ frequency }})</span>
               <span
                 class="change"
                 @click="$emit('change')"
                 >Change</span
               >
             </Stack>
-            <span class="h2 blue">${{ planPrices[frequency][plan] }}/{{ labels[frequency].abbreviation }}</span>
+            <span class="h2 blue">${{ planPrices[frequency][plan] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
           </Row>
 
           <hr />
@@ -24,7 +24,7 @@
             v-for="addOn in addOnKeys"
           >
             <span>{{ addOnInfo[addOn].title }}</span>
-            <span class="blue">+${{ addOnInfo[addOn].price[frequency] }}/{{ labels[frequency].abbreviation }}</span>
+            <span class="blue">+${{ addOnInfo[addOn].price[frequency] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
           </Row>
         </Stack>
 
@@ -32,8 +32,8 @@
           class="total"
           style="justify-content: space-between"
         >
-          <span>Total (per {{ labels[frequency].unit }})</span>
-          <span class="h2 purple">${{ totalPrice() }}/{{ labels[frequency].abbreviation }}</span>
+          <span>Total (per {{ frequencyLabels[frequency].unit }})</span>
+          <span class="h2 purple">${{ totalPrice() }}/{{ frequencyLabels[frequency].abbreviation }}</span>
         </Row>
       </Stack>
     </template>
@@ -62,34 +62,21 @@
 import { Page, Stack, Row } from '@/components';
 import planPrices from './data/planPrices.js';
 import addOnInfo from './data/addOnInfo.js';
+import frequencyLabels from './data/frequencyLabels.js'
 
 const props = defineProps({
-  isMonthly: { type: Boolean, required: true },
   plan: { type: String, required: true },
   addOns: { type: Object, required: true },
+  frequency: { type: String, required: true },
 });
 
 defineEmits(['change', 'confirm', 'back']);
 
 const addOnKeys = Object.keys(props.addOns).filter((key) => props.addOns[key] === true);
-const frequency = props.isMonthly ? 'monthly' : 'yearly';
-
-const labels = {
-  monthly: {
-    frequency: 'monthly',
-    unit: 'month',
-    abbreviation: 'mo',
-  },
-  yearly: {
-    frequency: 'yearly',
-    unit: 'year',
-    abbreviation: 'yr',
-  },
-};
 
 function totalPrice() {
-  const planPrice = planPrices[frequency][props.plan];
-  const addOnPrices = addOnKeys.map((key) => addOnInfo[key].price[frequency]);
+  const planPrice = planPrices[props.frequency][props.plan];
+  const addOnPrices = addOnKeys.map((key) => addOnInfo[key].price[props.frequency]);
   const prices = [planPrice, ...addOnPrices];
 
   return prices.reduce((acc, curr) => acc + curr, 0);
