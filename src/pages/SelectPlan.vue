@@ -17,12 +17,8 @@
         >
           <template #icon> <component :is="icons[currentPlan]" /> </template>
           <template #main-content>
-            <Stack class="main-content">
-              <span
-                style="text-transform: capitalize"
-                class="h2"
-                >{{ currentPlan }}</span
-              >
+            <Stack class="plan-content">
+              <span class="h2 name">{{ currentPlan }}</span>
               <span class="text-body-2">${{ planPrices[frequency][currentPlan] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
             </Stack>
           </template>
@@ -115,18 +111,23 @@ function submit() {
 }
 
 .plan-inputs {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
   min-height: 19.5rem;
   @media (--tablet) {
-    flex-direction: row;
+    grid-template-columns: repeat(3, auto);
     min-height: unset;
   }
 }
 
-.main-content {
+.plan-content {
   gap: 0.3rem;
+}
+.plan-content .name {
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notice {

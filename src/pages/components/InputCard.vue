@@ -35,6 +35,8 @@ defineProps({
   justify-content: space-between;
   @media (--tablet) {
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 
@@ -47,7 +49,10 @@ defineProps({
   gap: 1rem;
   @media (--tablet) {
     flex-direction: v-bind('plan && "column"');
-    gap: 3rem
+    gap: 3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

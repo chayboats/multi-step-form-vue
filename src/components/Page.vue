@@ -54,11 +54,10 @@ const { tablet } = useBreakpoint();
 }
 
 .card-content {
-  padding: 2rem 0;
   gap: 1rem;
   width: 100%;
   @media (--tablet) {
-    padding: 0;
+    padding-top: 1.25rem;
   }
 }
 
@@ -66,5 +65,8 @@ const { tablet } = useBreakpoint();
   width: 100%;
   justify-content: space-between;
   padding-top: 1rem;
+  @media (--tablet) {
+    padding-top: 0;
+  }
 }
 </style>

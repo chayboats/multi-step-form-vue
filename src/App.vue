@@ -86,7 +86,6 @@ function setAddOns(selected) {
 function startOver() {
   currentStep.value = 1;
 }
-console.log(currentStep.value)
 </script>
 
 <style scoped>
@@ -104,18 +103,20 @@ console.log(currentStep.value)
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   padding: 1rem;
   align-items: center;
   width: 100%;
   @media (--tablet) {
     display: grid;
-    height: 35rem;
+    height: 37rem;
     background-color: white;
     margin: 1rem;
     border-radius: 0.75rem;
     grid-template-columns: auto 1fr;
-    max-width: 55rem;
+    max-width: 60rem;
   }
 }
 </style>
