@@ -1,24 +1,21 @@
 <template>
   <div class="app">
-    <Stack v-if="tablet">
-      <SidebarDesktop />
-    </Stack>
-    
-    <SidebarMobile v-else />
-
-    <StepTracker :current-step="currentStep" />
+    <SidebarMobile v-if="!tablet" />
 
     <div
+      :class="tablet && 'card-background'"
       class="main"
       v-auto-animate
     >
-      <Personal
+      <StepTracker :current-step="currentStep" />
+
+      <YourInfo
         v-if="currentStep === 0"
         :personal-data="personalData"
         @submit="nextStep"
-      ></Personal>
+      ></YourInfo>
 
-      <Plan
+      <SelectPlan
         v-else-if="currentStep === 1"
         :is-monthly="isMonthly"
         @toggle-billing-frequency="isMonthly = !isMonthly"
@@ -27,15 +24,15 @@
         @select-plan="setPlan"
         :frequency="frequency"
         :plan="plan"
-      ></Plan>
-      <AddOn
+      ></SelectPlan>
+      <AddOns
         v-else-if="currentStep === 2"
         :frequency="frequency"
         @set-add-ons="setAddOns"
         @next="nextStep"
         @back="previousStep"
         :data="addOns"
-      ></AddOn>
+      ></AddOns>
       <Summary
         v-else-if="currentStep === 3"
         :plan="plan"
@@ -51,9 +48,9 @@
 </template>
 
 <script setup>
-import { SidebarMobile, SidebarDesktop, Stack, StepTracker } from '@/components';
-import { Personal, Plan, AddOn, Confirmation, Summary } from '@/pages';
-import { ref, computed, watchEffect } from 'vue';
+import { SidebarMobile, StepTracker } from '@/components';
+import { YourInfo, SelectPlan, AddOns, Confirmation, Summary } from '@/pages';
+import { ref, computed } from 'vue';
 import useBreakpoint from './use/useBreakpoint.js';
 
 const { tablet } = useBreakpoint();
@@ -89,6 +86,7 @@ function setAddOns(selected) {
 function startOver() {
   currentStep.value = 1;
 }
+console.log(currentStep.value)
 </script>
 
 <style scoped>
@@ -101,6 +99,7 @@ function startOver() {
   width: 100%;
   @media (--tablet) {
     flex-direction: row;
+    justify-content: center;
   }
 }
 
@@ -110,7 +109,13 @@ function startOver() {
   align-items: center;
   width: 100%;
   @media (--tablet) {
-    height: auto;
+    display: grid;
+    height: 35rem;
+    background-color: white;
+    margin: 1rem;
+    border-radius: 0.75rem;
+    grid-template-columns: auto 1fr;
+    max-width: 55rem;
   }
 }
 </style>

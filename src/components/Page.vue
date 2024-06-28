@@ -1,19 +1,24 @@
 <template>
   <Stack class="page">
-    <Stack class="card">
+    <Stack
+      class="card"
+      :class="!tablet && 'card-background'"
+    >
       <div>
         <slot name="icon" />
       </div>
 
-      <span class="h1">
+      <h1>
         <slot name="title"></slot>
-      </span>
+      </h1>
 
       <p>
         <slot name="description"></slot>
       </p>
 
-      <slot name="content"> </slot>
+      <Stack class="card-content">
+        <slot name="content"> </slot>
+      </Stack>
     </Stack>
 
     <Row class="buttons">
@@ -23,16 +28,22 @@
 </template>
 <script setup>
 import { Stack, Row } from '@/components';
+import useBreakpoint from '@/use/useBreakpoint.js';
 
 defineProps({
   isLastPage: { type: Boolean, default: false },
 });
+
+const { tablet } = useBreakpoint();
 </script>
 
 <style scoped>
 .page {
   height: 100%;
   justify-content: space-between;
+  @media (--tablet) {
+    padding: 0 3rem;
+  }
 }
 
 .card {
@@ -40,9 +51,15 @@ defineProps({
   flex-direction: column;
   padding: v-bind('isLastPage ? "5rem 1.5rem" : "1.5rem"');
   gap: 1rem;
-  background-color: var(--color-white);
-  border-radius: 0.75rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  padding: 2rem 0;
+  gap: 1rem;
+  width: 100%;
+  @media (--tablet) {
+    padding: 0;
+  }
 }
 
 .buttons {

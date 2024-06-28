@@ -3,7 +3,7 @@
     <template #title>Select Your Plan</template>
     <template #description>You have the option of monthly or yearly billing</template>
     <template #content>
-      <Stack
+      <div
         v-auto-animate
         class="plan-inputs"
       >
@@ -13,6 +13,7 @@
           @click="$emit('selectPlan', currentPlan)"
           :id="currentPlan"
           :selected="plan == currentPlan"
+          plan
         >
           <template #icon> <component :is="icons[currentPlan]" /> </template>
           <template #main-content>
@@ -26,7 +27,7 @@
             </Stack>
           </template>
         </InputCard>
-      </Stack>
+      </div>
 
       <Row class="slider-card">
         <Slider
@@ -36,6 +37,7 @@
           option2="yearly"
         />
       </Row>
+
       <div v-auto-animate>
         <Row
           class="notice"
@@ -113,8 +115,14 @@ function submit() {
 }
 
 .plan-inputs {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   min-height: 19.5rem;
+  @media (--tablet) {
+    flex-direction: row;
+    min-height: unset;
+  }
 }
 
 .main-content {

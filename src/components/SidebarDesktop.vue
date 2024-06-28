@@ -1,5 +1,5 @@
 <template>
-  <svg
+  <svg class="sidebar-desktop"
     xmlns="http://www.w3.org/2000/svg"
     width="274"
     height="568"
@@ -55,3 +55,10 @@
     </g>
   </svg>
 </template>
+
+<style scoped>
+.sidebar-desktop {
+  position: relative;
+  z-index: -1;
+}
+</style>

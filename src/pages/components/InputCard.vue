@@ -3,12 +3,12 @@
     :id="id"
     class="input-card"
   >
-    <Row style="gap: 1rem">
+    <div class="content">
       <slot name="icon"></slot>
       <Stack style="gap: 0.1rem">
         <slot name="main-content"></slot>
       </Stack>
-    </Row>
+    </div>
 
     <slot name="additional-info"></slot>
   </Row>
@@ -20,6 +20,7 @@ import { Row, Stack } from '@/components';
 defineProps({
   id: { type: String, required: true },
   selected: { type: Boolean, default: false },
+  plan: { type: Boolean, default: false },
 });
 </script>
 
@@ -32,10 +33,21 @@ defineProps({
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
+  @media (--tablet) {
+    width: 100%;
+  }
 }
 
 .input-card:hover {
   cursor: pointer;
   border: 1px solid var(--color-purple);
+}
+.content {
+  display: flex;
+  gap: 1rem;
+  @media (--tablet) {
+    flex-direction: v-bind('plan && "column"');
+    gap: 3rem
+  }
 }
 </style>

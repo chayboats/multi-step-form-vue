@@ -1,31 +1,60 @@
 <template>
-  <Row class="step-tracker">
-    <div
-      :class="currentStep === step && 'highlighted'"
-      class="number-circle"
-      v-for="step in [...Array(4).keys()]"
-      :key="step + 1"
-    >
-      <span>{{ step + 1 }}</span>
+  <div :class="tablet && 'sidebar'">
+    <div class="step-tracker">
+      <Row
+        class="step"
+        v-for="step in steps"
+        :key="step + steps.indexOf(step)"
+      >
+        <div
+          :class="currentStep === steps.indexOf(step) && 'highlighted'"
+          class="circle"
+        >
+          <span>{{ steps.indexOf(step) + 1 }}</span>
+        </div>
+        <Stack>
+          <span class="count">STEP {{ steps.indexOf(step) + 1 }}</span>
+          <span class="name">{{ step }}</span>
+        </Stack>
+      </Row>
     </div>
-  </Row>
+  </div>
 </template>
 
 <script setup>
-import { Row } from '@/components';
+import { Row, Stack } from '@/components';
+import steps from '../data/steps.js';
+import useBreakpoint from '@/use/useBreakpoint.js';
+
+const { tablet } = useBreakpoint();
+
 defineProps({
   currentStep: { type: Number, required: true },
 });
 </script>
 
 <style scoped>
+.sidebar {
+  background: url('../assets/images/bg-sidebar-desktop.svg');
+  height: 100%;
+  border-radius: 0.5rem;
+  background-repeat: no-repeat;
+  width: 274px;
+}
+
 .step-tracker {
+  display: flex;
   padding: 2rem;
   gap: 1rem;
   align-items: center;
+  @media (--tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 }
 
-.number-circle {
+.step .circle {
   border: 1px solid white;
   border-radius: 50%;
   width: 2rem;
@@ -37,9 +66,25 @@ defineProps({
   font-family: 'ubuntu-medium';
 }
 
-.highlighted {
+.step .highlighted {
   background-color: var(--color-light-blue);
   color: var(--color-dark-blue);
   border: none;
+}
+
+.step {
+  gap: 1rem;
+}
+
+.step .count {
+  color: rgba(255, 255, 255, 0.417);
+  font-size: 0.75rem;
+}
+
+.step .name {
+  color: white;
+  font-family: 'ubuntu-medium';
+  font-size: 0.9rem;
+  letter-spacing: 1px;
 }
 </style>

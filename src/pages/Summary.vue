@@ -17,7 +17,7 @@
             <span class="h2 blue">${{ planPrices[frequency][plan] }}/{{ frequencyLabels[frequency].abbreviation }}</span>
           </Row>
 
-          <hr />
+          <hr style="border: 0.5px solid var(--color-gray-300)" />
 
           <Row
             style="justify-content: space-between"

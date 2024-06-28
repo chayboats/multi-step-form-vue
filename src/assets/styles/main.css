@@ -88,8 +88,12 @@ button {
   color: var(--color-white);
   border: none;
   padding: 0.75rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   font-size: 14px;
+
+  @media (--tablet) {
+    padding: 0.75rem 1.25rem;
+  }
 }
 
 button:hover {
@@ -108,10 +112,10 @@ button:hover {
   background-color: unset;
 }
 
-.h1 {
+h1 {
   font-family: 'ubuntu-bold';
   color: var(--color-dark-blue);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .h2 {
@@ -145,4 +149,10 @@ button:hover {
 
 p {
   line-height: 1.5rem;
+}
+
+.card-background {
+  background-color: var(--color-white);
+  border-radius: 0.75rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
