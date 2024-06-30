@@ -2,7 +2,7 @@
   <Stack class="page">
     <Stack
       class="card"
-      :class="!tablet && 'card-background'"
+      :class="!desktop && 'card-background'"
     >
       <div>
         <slot name="icon" />
@@ -34,14 +34,14 @@ defineProps({
   isLastPage: { type: Boolean, default: false },
 });
 
-const { tablet } = useBreakpoint();
+const { desktop } = useBreakpoint();
 </script>
 
 <style scoped>
 .page {
   height: 100%;
   justify-content: space-between;
-  @media (--tablet) {
+  @media (--desktop) {
     padding: 0 3rem;
   }
 }
@@ -56,7 +56,7 @@ const { tablet } = useBreakpoint();
 .card-content {
   gap: 1rem;
   width: 100%;
-  @media (--tablet) {
+  @media (--desktop) {
     padding-top: 1.25rem;
   }
 }
@@ -65,7 +65,7 @@ const { tablet } = useBreakpoint();
   width: 100%;
   justify-content: space-between;
   padding-top: 1rem;
-  @media (--tablet) {
+  @media (--desktop) {
     padding-top: 0;
   }
 }

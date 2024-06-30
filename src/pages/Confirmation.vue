@@ -22,5 +22,8 @@ import { Page } from '@/components';
   align-items: center;
   text-align: center;
   gap: 1rem;
+  @media (--desktop) {
+    justify-content: center;
+  }
 }
 </style>

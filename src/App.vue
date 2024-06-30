@@ -1,9 +1,9 @@
 <template>
   <div class="app">
-    <SidebarMobile v-if="!tablet" />
+    <SidebarMobile v-if="!desktop" />
 
     <div
-      :class="tablet && 'card-background'"
+      :class="desktop && 'card-background'"
       class="main"
       v-auto-animate
     >
@@ -53,7 +53,7 @@ import { YourInfo, SelectPlan, AddOns, Confirmation, Summary } from '@/pages';
 import { ref, computed } from 'vue';
 import useBreakpoint from './use/useBreakpoint.js';
 
-const { tablet } = useBreakpoint();
+const { desktop } = useBreakpoint();
 const currentStep = ref(0);
 const personalData = ref({ name: null, email: null, phone: null });
 const isMonthly = ref(true);
@@ -96,7 +96,7 @@ function startOver() {
   font-family: 'ubuntu-regular';
   height: 100vh;
   width: 100%;
-  @media (--tablet) {
+  @media (--desktop) {
     flex-direction: row;
     justify-content: center;
   }
@@ -109,7 +109,7 @@ function startOver() {
   padding: 1rem;
   align-items: center;
   width: 100%;
-  @media (--tablet) {
+  @media (--desktop) {
     display: grid;
     height: 37rem;
     background-color: white;

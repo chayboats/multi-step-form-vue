@@ -33,11 +33,6 @@ defineProps({
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
-  @media (--tablet) {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-  }
 }
 
 .input-card:hover {
@@ -47,12 +42,8 @@ defineProps({
 .content {
   display: flex;
   gap: 1rem;
-  @media (--tablet) {
+  @media (--desktop) {
     flex-direction: v-bind('plan && "column"');
-    gap: 3rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 </style>

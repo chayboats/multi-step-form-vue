@@ -1,5 +1,5 @@
 <template>
-  <div :class="tablet && 'step-tracker-background'">
+  <div :class="desktop && 'step-tracker-background'">
     <div class="step-tracker">
       <Row
         class="step"
@@ -13,7 +13,7 @@
           <span>{{ steps.indexOf(step) + 1 }}</span>
         </div>
         <Stack
-          v-if="tablet"
+          v-if="desktop"
           class="step-description"
         >
           <span class="count">STEP {{ steps.indexOf(step) + 1 }}</span>
@@ -29,7 +29,7 @@ import { Row, Stack } from '@/components';
 import steps from '../data/steps.js';
 import useBreakpoint from '@/use/useBreakpoint.js';
 
-const { tablet } = useBreakpoint();
+const { desktop } = useBreakpoint();
 
 defineProps({
   currentStep: { type: Number, required: true },
@@ -51,7 +51,7 @@ defineProps({
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  @media (--tablet) {
+  @media (--desktop) {
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;

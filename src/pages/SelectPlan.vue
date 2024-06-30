@@ -114,20 +114,21 @@ function submit() {
   display: grid;
   gap: 1rem;
   min-height: 19.5rem;
-  @media (--tablet) {
-    grid-template-columns: repeat(3, auto);
+  @media (--desktop) {
+    grid-template-columns: repeat(3, 1fr);
     min-height: unset;
   }
 }
 
 .plan-content {
   gap: 0.3rem;
+  @media (--desktop) {
+    padding-top: 2rem;
+  }
 }
+
 .plan-content .name {
   text-transform: capitalize;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .notice {
