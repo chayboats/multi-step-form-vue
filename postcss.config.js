@@ -4,7 +4,7 @@ import postcssGlobalData from '@csstools/postcss-global-data';
 export default {
   plugins: [
     postcssGlobalData({
-      files: ['./src/assets/styles/breakpoints.css'],
+      files: ['./src/styles/breakpoints.css'],
     }),
     postcssPresetEnv({
       stage: 0,
