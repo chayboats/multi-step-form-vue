@@ -6,3 +6,4 @@ export { default as SidebarDesktop } from './SidebarDesktop.vue';
 export { default as SidebarMobile } from './SidebarMobile.vue';
 export { default as Stack } from './Stack.vue';
 export { default as StepTracker } from './StepTracker.vue';
+export { default as Input } from './Input.vue';

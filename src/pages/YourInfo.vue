@@ -2,53 +2,32 @@
   <form
     @submit.prevent="formValidation"
     style="height: 100%"
-    novalidate
   >
     <Page>
       <template #title>Personal Info</template>
       <template #description>Please provide your name, email, address, and phone number</template>
       <template #content>
-        <Stack>
+        <Stack
+          v-for="key in dataKeys"
+          :key="key + dataKeys.indexOf(key)"
+        >
           <Row style="justify-content: space-between">
-            <label for="name">Name</label>
-            <span v-if="dataErrors.name">This field is required</span>
+            <label
+              class="capitalize"
+              :for="key"
+              >{{ key }}</label
+            >
+            <span
+              class="h2 red"
+              v-if="dataErrors[key]"
+              >This field is required</span
+            >
           </Row>
 
-          <input
-            id="name"
-            type="text"
-            placeholder="e.g. Stephen King"
-            v-model="personalData.name"
-          />
-        </Stack>
-
-        <Stack>
-          <Row style="justify-content: space-between">
-            <label for="email">Email</label>
-            <span v-if="dataErrors.email">This field is required</span>
-          </Row>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="e.g. stephenking@lorem.com"
-            v-model="personalData.email"
-          />
-        </Stack>
-
-        <Stack>
-          <Row style="justify-content: space-between">
-            <label for="phone">Phone Number</label>
-            <span v-if="dataErrors.phone">This field is required</span>
-          </Row>
-          <input
-            id="phone"
-            type="tel"
-            placeholder="e.g. 1234567890"
-            maxlength="10"
-            pattern="\d{10}"
-            title="1234567890"
-            v-model="personalData.phone"
+          <Input
+            :style="dataErrors[key] && 'border: 1px solid var(--color-red)'"
+            :attrs="yourInfo[key]"
+            v-model="personalData[key]"
           />
         </Stack>
       </template>
@@ -60,8 +39,9 @@
   </form>
 </template>
 <script setup>
-import { Page, FlexSpace, Stack, Row } from '@/components';
+import { Page, FlexSpace, Stack, Row, Input } from '@/components';
 import { ref } from 'vue';
+import yourInfo from './data/yourInfo.js';
 
 const emits = defineEmits(['submit']);
 
@@ -81,14 +61,13 @@ function formValidation() {
     return isEmptyString || isNull;
   }
 
-  const emptyInputs = dataKeys.filter((key) => isEmpty(key));
-
-  if (emptyInputs.length > 0) {
-    emptyInputs.forEach((input) => (dataErrors.value[input] = true));
-    console.log(dataErrors.value);
-    return;
+  function isValid() {
+    const errors = Object.values(dataErrors.value);
+    return !errors.includes(true);
   }
 
-  emits('submit');
+  dataErrors.value = { name: isEmpty('name'), email: isEmpty('email'), phone: isEmpty('phone') };
+
+  isValid() && emits('submit');
 }
 </script>
