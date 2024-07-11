@@ -26,7 +26,7 @@
 
           <input
             :style="dataErrors[key] && 'border: 1px solid var(--color-red)'"
-            :id="yourInfo[key].name"
+            :id="yourInfo[key].id"
             :type="yourInfo[key].type"
             :placeholder="yourInfo[key].placeholder"
             :maxlength="yourInfo[key]?.maxlength"

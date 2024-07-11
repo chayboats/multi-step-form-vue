@@ -38,6 +38,7 @@ defineProps({
 .input-card:hover {
   cursor: pointer;
   border: 1px solid var(--color-purple);
+  background-color: var(--color-gray-100);
 }
 .content {
   display: flex;
