@@ -26,7 +26,6 @@
 
 <script setup>
 import { Row, Stack } from '@/components';
-import steps from '../data/steps.js';
 import useBreakpoint from '@/use/useBreakpoint.js';
 
 const { desktop } = useBreakpoint();
@@ -34,6 +33,8 @@ const { desktop } = useBreakpoint();
 defineProps({
   currentStep: { type: Number, required: true },
 });
+
+const steps = ['YOUR INFO', 'SELECT PLAN', 'ADD-ONS', 'SUMMARY']
 </script>
 
 <style scoped>

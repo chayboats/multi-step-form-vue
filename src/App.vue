@@ -11,7 +11,7 @@
 
       <YourInfo
         v-if="currentStep === 0"
-        :personal-data="personalData"
+        v-model="personalData"
         @submit="setPersonalData"
       ></YourInfo>
 
@@ -50,7 +50,7 @@
 <script setup>
 import { SidebarMobile, StepTracker } from '@/components';
 import { YourInfo, SelectPlan, AddOns, Confirmation, Summary } from '@/pages';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import useBreakpoint from './use/useBreakpoint.js';
 
 const { desktop } = useBreakpoint();

@@ -24,9 +24,14 @@
             >
           </Row>
 
-          <Input
+          <input
             :style="dataErrors[key] && 'border: 1px solid var(--color-red)'"
-            :attrs="yourInfo[key]"
+            :id="yourInfo[key].name"
+            :type="yourInfo[key].type"
+            :placeholder="yourInfo[key].placeholder"
+            :maxlength="yourInfo[key]?.maxlength"
+            :pattern="yourInfo[key]?.pattern"
+            :title="yourInfo[key]?.title"
             v-model="personalData[key]"
           />
         </Stack>
@@ -39,24 +44,22 @@
   </form>
 </template>
 <script setup>
-import { Page, FlexSpace, Stack, Row, Input } from '@/components';
+import { Page, FlexSpace, Stack, Row } from '@/components';
 import { ref } from 'vue';
 import yourInfo from './data/yourInfo.js';
 
 const emits = defineEmits(['submit']);
 
-const props = defineProps({
-  personalData: { type: Object, required: true },
-});
+const personalData = defineModel()
 
 const dataErrors = ref({ name: false, email: false, phone: false });
 
-const dataKeys = Object.keys(props.personalData);
+const dataKeys = Object.keys(personalData.value);
 
 function formValidation() {
   function isEmpty(key) {
-    const isEmptyString = props.personalData[key] === '';
-    const isNull = props.personalData[key] === null;
+    const isEmptyString = personalData.value[key] === '';
+    const isNull = personalData.value[key] === null;
 
     return isEmptyString || isNull;
   }
