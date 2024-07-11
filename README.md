@@ -1,6 +1,8 @@
 # Multi-step Form - Frontend Montor Challenge
 
-<!-- Screenshot/video -->
+https://github.com/user-attachments/assets/4b84387b-0ead-49ee-a968-7ed596c353ac
+
+<img width="392" alt="image" src="https://github.com/user-attachments/assets/b9cb025c-bcce-4bfa-a0ad-8be7ed0047c8">
 
 This project is a solution to the [Frontend Mentor multi-step form challenge](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). The goal of this challenge is to build a multi-step form that allows users to complete a series of steps to submit their information. This advanced-level challenge focuses on creating a smooth user experience by handling form validation, navigation, and dynamic content display across multiple steps.
 
