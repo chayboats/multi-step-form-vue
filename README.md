@@ -1,4 +1,4 @@
-# Multi-step Form - Frontend Montor Challenge
+# Multi-Step Form - Frontend Mentor Challenge
 
 https://github.com/user-attachments/assets/4b84387b-0ead-49ee-a968-7ed596c353ac
 
@@ -8,7 +8,7 @@ This project is a solution to the [Frontend Mentor multi-step form challenge](ht
 
 ## Table of contents
 
-- [Multi-step Form - Frontend Montor Challenge](#multi-step-form---frontend-montor-challenge)
+- [Multi-step Form - Frontend Mentor Challenge](#multi-step-form---frontend-mentor-challenge)
   - [Table of contents](#table-of-contents)
   - [The Challenge](#the-challenge)
   - [Features](#features)
