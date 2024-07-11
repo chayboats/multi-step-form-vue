@@ -12,13 +12,13 @@
       <YourInfo
         v-if="currentStep === 0"
         :personal-data="personalData"
-        @submit="nextStep"
+        @submit="setPersonalData"
       ></YourInfo>
 
       <SelectPlan
         v-else-if="currentStep === 1"
         :is-monthly="isMonthly"
-        @toggle-billing-frequency="isMonthly = !isMonthly"
+        @toggle-billing-frequency="setIsMonthly"
         @next="nextStep"
         @back="previousStep"
         @select-plan="setPlan"
@@ -54,11 +54,11 @@ import { ref, computed } from 'vue';
 import useBreakpoint from './use/useBreakpoint.js';
 
 const { desktop } = useBreakpoint();
-const currentStep = ref(0);
-const personalData = ref({ name: null, email: null, phone: null });
-const isMonthly = ref(true);
-const plan = ref(null);
-const addOns = ref({ service: false, storage: false, profile: false });
+const currentStep = ref(getLocally('current-step', 0));
+const personalData = ref(getLocally('personal-data', { name: null, email: null, phone: null }));
+const isMonthly = ref(getLocally('is-monthly', true));
+const plan = ref(getLocally('plan', null));
+const addOns = ref(getLocally('add-ons', { service: false, storage: false, profile: false }));
 
 const frequency = computed(() => {
   if (isMonthly.value) {
@@ -67,24 +67,47 @@ const frequency = computed(() => {
   return 'yearly';
 });
 
+function getLocally(item, value) {
+  return localStorage.getItem(item) ? JSON.parse(localStorage.getItem(item)) : value;
+}
+
+function setLocally(item, value) {
+  localStorage.setItem(item, JSON.stringify(value));
+}
+
 function nextStep() {
   currentStep.value++;
+  setLocally('current-step', currentStep.value);
 }
 
 function previousStep() {
   currentStep.value--;
-}
-
-function setPlan(id) {
-  plan.value = id;
-}
-
-function setAddOns(selected) {
-  addOns.value[selected] = !addOns.value[selected];
+  setLocally('current-step', currentStep.value);
 }
 
 function startOver() {
   currentStep.value = 1;
+  setLocally('current-step', currentStep.value);
+}
+
+function setPersonalData() {
+  setLocally('personal-data', personalData.value);
+  nextStep();
+}
+
+function setIsMonthly() {
+  isMonthly.value = !isMonthly.value;
+  setLocally('is-monthly', isMonthly.value);
+}
+
+function setPlan(id) {
+  plan.value = id;
+  setLocally('plan', plan.value);
+}
+
+function setAddOns(selected) {
+  addOns.value[selected] = !addOns.value[selected];
+  setLocally('add-ons', addOns.value);
 }
 </script>
 
