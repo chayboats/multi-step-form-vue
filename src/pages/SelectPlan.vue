@@ -42,7 +42,10 @@
           <IconWarning />
           <div>
             <span class="h2">Warning: </span>
-            <span class="blue">Please select a plan from the options above.</span>
+            <span
+              class="blue"
+              >Please select a plan from the options above.</span
+            >
           </div>
         </Row>
       </div>

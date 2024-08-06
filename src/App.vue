@@ -132,6 +132,7 @@ function setAddOns(selected) {
   padding: 1rem;
   align-items: center;
   width: 100%;
+  max-width: 26rem;
   @media (--desktop) {
     display: grid;
     height: 37rem;
